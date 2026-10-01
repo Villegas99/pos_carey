@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_partner_form_pos_carey" model="ir.ui.view">
+        <field name="name">res.partner.form.pos.carey</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="pos_branch_editable" invisible="1"/>
+                <field name="pos_branch_id"
+                       groups="pos_carey.group_pos_branch_operator,pos_carey.group_pos_branch_manager"
+                       readonly="not pos_branch_editable"
+                       options="{'no_create': True, 'no_open': True}"
+                       placeholder="Cliente global"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_partner_tree_pos_carey" model="ir.ui.view">
+        <field name="name">res.partner.list.pos.carey</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="email" position="after">
+                <field name="pos_branch_id"
+                       optional="show"
+                       groups="pos_carey.group_pos_branch_operator,pos_carey.group_pos_branch_manager"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter_pos_carey" model="ir.ui.view">
+        <field name="name">res.partner.search.pos.carey</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="pos_branch_id"
+                       groups="pos_carey.group_pos_branch_operator,pos_carey.group_pos_branch_manager"/>
+                <filter name="groupby_pos_branch"
+                        string="Sucursal"
+                        context="{'group_by': 'pos_branch_id'}"
+                        groups="pos_carey.group_pos_branch_operator,pos_carey.group_pos_branch_manager"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

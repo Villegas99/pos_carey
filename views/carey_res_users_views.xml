@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_users_form_pos_carey" model="ir.ui.view">
+        <field name="name">res.users.form.pos.carey</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='access_rights']" position="inside">
+                <group string="Sucursal Carey" name="pos_carey_branch_group">
+                    <field name="pos_carey_access_level" widget="radio"/>
+                    <field name="pos_operator_branch_id"
+                           invisible="pos_carey_access_level == 'none'"
+                           options="{'no_create': True, 'no_open': True}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

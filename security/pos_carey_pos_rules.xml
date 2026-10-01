@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Regla GLOBAL (sin "groups"): misma lógica que la de res.partner.
+         Manager / system / usuarios que no son operador pasan libres.
+         El operador solo ve y toca SU punto de venta (pos.config = sucursal). -->
+    <record id="rule_pos_config_branch_isolation" model="ir.rule">
+        <field name="name">Puntos de venta: aislamiento por sucursal (regla global)</field>
+        <field name="model_id" ref="point_of_sale.model_pos_config"/>
+        <field name="domain_force">(
+            [(1, '=', 1)]
+            if (user.has_group('pos_carey.group_pos_branch_manager')
+                or user.has_group('base.group_system')
+                or not user.has_group('pos_carey.group_pos_branch_operator'))
+            else [('id', '=', user.pos_operator_branch_id.id)]
+        )</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+</odoo>

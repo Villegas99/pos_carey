@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_pos_branch_operator" model="res.groups">
+        <field name="name">Operador de Sucursal</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')),
+                                         (4, ref('point_of_sale.group_pos_user'))]"/>
+        <field name="comment">Solo accede a los clientes de su sucursal y a los
+            clientes globales. Requiere una sucursal asignada en su ficha de usuario.</field>
+    </record>
+
+    <record id="group_pos_branch_manager" model="res.groups">
+        <field name="name">Gerencia Global</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')),
+                                         (4, ref('point_of_sale.group_pos_user'))]"/>
+        <field name="comment">Acceso total a la cartera de clientes de todas las
+            sucursales, incluidos los clientes globales.</field>
+    </record>
+
+</odoo>
